@@ -3,6 +3,7 @@ import Content from '../../components/homeContent/homeContent'
 import Process from '../../components/howItWorks/howItWorks'
 import Reason from '../../components/whyLacacaGuide/whyLacacaGuide'
 import Features from '../../components/features/features'
+import About from '../../components/about/about'
 
 export default function homepage() {
   return (
@@ -11,6 +12,7 @@ export default function homepage() {
     <Process />
     <Reason />
     <Features />
+    <About />
     </>
   )
 }

@@ -7,6 +7,8 @@ import { TbArrowGuide } from "react-icons/tb";
 
 export default function features() {
   return (
+
+
     <div className='flex justify-center items-center px-10 py-6'>
         <div className='grid grid-cols-3 grid-rows-2 gap-5 justify-center items-center w-full px-10 py-6'>
             <div className='justify-center items-center bg-white rounded-lg shadow-sm p-6 hover:bg-[#0495d6] hover:text-white transition-colors'>
