@@ -1,6 +1,8 @@
 import React from 'react'
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from 'react-router-dom';
+import '@fontsource/poppins'
+
 
 export default function login() {
   return (
@@ -27,7 +29,22 @@ export default function login() {
         </div>
 
         <div className='bg-white rounded-lg shadow-lg p-5 mr-30 w-96 mb-30 h-110'>
+            <h3 className='text-center font-bold p-5'>Welcome Back!</h3>
+            <p className='text-center text-[12px] font-semibold '>We missed you! Please enter your details</p>
+
+            <form className='flex flex-col gap-4 p-5'>
+                <label className='font-bold text-sm'>Email</label>
+                <input type='email' className='p-3 border-1 border-gray-600 rounded-lg text-sm' placeholder='Enter your email'/>
+
+             
+                <label className='font-bold text-sm'>Password</label>   
+                <input type='password'  className='p-3 border-1 border-gray-600 rounded' placeholder='Enter your password'/>
             
+              <button type='submit' 
+              className=' flex p-2 justify-center items-center text-center bg-[#0495d6] ml-3 w-70 rounded  hover:bg-[#ffec70] shadow my-5 text-[#fff]'>
+              Sign In
+              </button>
+            </form>
         </div>
      </div>
 
