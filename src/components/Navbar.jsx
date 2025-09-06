@@ -115,14 +115,14 @@ export default function Navbar() {
       {/* Button Bar */}
       <div className='hidden md:flex items-center ml-4'>
         <Link
-          to='/'
-          className='px-10 py-2 mx-4 bg-[#0495d6] text-[#fff] hover:bg-[#ffec70] rounded-xl font-poppins transition-colors'
+          to='/login'
+          className='px-10 py-2 mx-4 bg-[#0495d6] text-[#fff] hover:bg-[#ffec70] rounded-xl shadow-md font-poppins transition-colors'
         >
           Login
         </Link>
 
           <Link
-          to='/'
+          to='/register'
           className='px-8 py-2 mx-4 bg-[#ffec70] text-[#fff] hover:bg-[#0495d6] rounded-xl  shadow-md font-poppins transition-colors'
         >
           Register
