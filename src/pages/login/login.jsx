@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IoIosArrowBack } from "react-icons/io";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import '@fontsource/poppins';
 import { auth } from '../../firebase/firebase'; 
@@ -12,6 +13,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +43,7 @@ export default function Login() {
       <div className='flex flex-col justify-center items-center m-auto'>
         <div className='justify-center items-center'>
           <img 
-            src='https://res.cloudinary.com/depeqzb6z/image/upload/v1757093291/LacacaGuide_White_vsuhap.png' 
+            src='https://res.cloudinary.com/depeqzb6z/image/upload/v1757251065/LacacaGuide_White_uiciks.png' 
             alt='logo'
             className='w-48 h-48 object-contain mr-30' 
           />
@@ -65,14 +67,22 @@ export default function Login() {
             />
 
             <label className='font-bold text-sm'>Password</label>   
-            <input 
-              type='password'  
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className='p-3 border border-gray-600 rounded text-sm' 
-              placeholder='Enter your password'
-              required
-            />
+            <div className="relative">
+              <input 
+                type={showPassword ? 'text' : 'password'}  
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className='p-3 border border-gray-600 rounded text-sm w-full' 
+                placeholder='Enter your password'
+                required
+              />
+              <div 
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-600"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
+            </div>
 
             <button 
               type='submit' 
@@ -83,15 +93,13 @@ export default function Login() {
             </button>
           </form>
 
-             {/* New User Register Text */}
-            <p className='text-center text-sm'>
-              New user? 
-              <Link to='/register' className='text-[#0495d6] font-bold ml-1 hover:underline'>
-                Register here
-              </Link>
-            </p>
-
-            
+          {/* New User Register Text */}
+          <p className='text-center text-sm'>
+            New user? 
+            <Link to='/register' className='text-[#0495d6] font-bold ml-1 hover:underline'>
+              Register here
+            </Link>
+          </p>
         </div>
       </div>
     </div>

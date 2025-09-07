@@ -9,6 +9,7 @@ import Layout from './Layout'
 import Home from './pages/homepage/homepage'
 import Login from './pages/login/login'
 import Register from './pages/register/register'
+import Dashboard from './pages/dashboard/dashboard'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <>
         <Route path="/login" element={<Login  />} />
         <Route path="/register" element={<Register  />} />
+        <Route path="/dashboard" element={<Dashboard />} /> 
 
         <Route path="/" element={<Layout />}>
           <Route index element={<Home/>} />

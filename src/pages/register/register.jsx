@@ -98,7 +98,7 @@ export default function Register() {
       <div className="flex flex-col justify-center items-center m-auto">
         <div className="justify-center items-center">
           <img
-            src="https://res.cloudinary.com/depeqzb6z/image/upload/v1757093291/LacacaGuide_White_vsuhap.png"
+            src="https://res.cloudinary.com/depeqzb6z/image/upload/v1757251065/LacacaGuide_White_uiciks.png"
             alt="logo"
             className="w-48 h-48 object-contain mr-30"
           />
