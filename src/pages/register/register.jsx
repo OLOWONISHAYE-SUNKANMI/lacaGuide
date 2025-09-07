@@ -22,7 +22,8 @@ export default function Register() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // toggle state
+  const [firestoreWarning, setFirestoreWarning] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,33 +32,40 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setFirestoreWarning('');
     setLoading(true);
 
     try {
-      // Register user
+      // Register user in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         formData.email,
         formData.password
       );
-
       const user = userCredential.user;
 
-      // Save to Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        fullName: formData.fullName,
-        matricNo: formData.matricNo,
-        department: formData.department,
-        level: formData.level,
-        email: formData.email,
-        createdAt: new Date()
-      });
+      // Try saving Firestore data but don’t block success if it fails
+      try {
+        await setDoc(doc(db, "users", user.uid), {
+          fullName: formData.fullName || "",
+          matricNo: formData.matricNo || "",
+          department: formData.department || "",
+          level: formData.level || "",
+          email: formData.email || "",
+          createdAt: new Date().toISOString(),
+        });
+      } catch (firestoreError) {
+        console.error("Firestore write failed:", firestoreError);
+        setFirestoreWarning("Account created, but we could not save your profile details. Please update later.");
+      }
 
-      // Show success instantly
+      // Show success modal
       setSuccess(true);
 
-      // Send email verification in background
-      sendEmailVerification(user).catch(err => console.error(err));
+      // Send email verification (background)
+      sendEmailVerification(user).catch(err => {
+        console.error("Email verification failed:", err);
+      });
 
       // Redirect after 5s
       setTimeout(() => {
@@ -65,9 +73,11 @@ export default function Register() {
       }, 5000);
 
     } catch (err) {
+      // Auth failed
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -188,7 +198,7 @@ export default function Register() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-7 text-gray-600 text-sm"
               >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
               </button>
             </div>
 
@@ -220,6 +230,9 @@ export default function Register() {
             A verification email has been sent to <span className="font-semibold">{formData.email}</span>.  
             Please check your inbox and verify before logging in.
           </p>
+          {firestoreWarning && (
+            <p className="text-yellow-600 text-sm mt-3">{firestoreWarning}</p>
+          )}
         </div>
       )}
     </div>
